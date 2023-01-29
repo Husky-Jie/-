@@ -46,9 +46,9 @@ dubbo利用超时机制来解决这个问题，设置一个超时时间，在这
 
 ## 多版本：
 
-<img src="D:\Java学习\java笔记\dubbo\image-20221109101821312.png" alt="image-20221109101821312" style="zoom: 50%;" />
+<img src="D:\Java学习\java笔记\dubbo\assets\image-20221109101821312.png" alt="image-20221109101821312" style="zoom: 50%;" />
 
-<img src="D:\Java学习\java笔记\dubbo\image-20221109101839521.png" alt="image-20221109101839521" style="zoom:50%;" />
+<img src="D:\Java学习\java笔记\dubbo\assets\image-20221109101839521.png" alt="image-20221109101839521" style="zoom:50%;" />
 
 
 
