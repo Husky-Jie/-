@@ -285,6 +285,9 @@ public class OrderApplication {
         SpringApplication.run(OrderApplication.class, args);
     }
 
+     /**
+     * 创建RestTemplate并注入Spring容器，就可发起http请求
+     */
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
@@ -754,6 +757,10 @@ SpringCloudRibbon的底层采用了一个拦截器，拦截了RestTemplate发出
 1. 代码方式：在order-service中的OrderApplication类中，定义一个新的IRule：
 
 ```java
+/**
+     * 开启随机负载均衡策略
+     * @return
+     */
 @Bean
 public IRule randomRule(){
     return new RandomRule();
@@ -762,7 +769,7 @@ public IRule randomRule(){
 
 
 
-2. 配置文件方式：在order-service的application.yml文件中，添加新的配置也可以修改规则：
+2. 配置文件方式：在order-service的application.yml文件中，添加新的配置也可以修改规则：（该配置不行，目前没找到解决方法）
 
 ```yaml
 userservice: # 给某个微服务配置负载均衡规则，这里是userservice服务
@@ -803,7 +810,7 @@ ribbon:
 
 
 
-安装方式可以参考课前资料《Nacos安装指南.md》
+安装方式可以参考课前资料《[Nacos安装指南.md](D:\Java学习\java笔记\springcloud\nacos\Nacos安装指南.md)》
 
 
 
@@ -1014,7 +1021,7 @@ Nacos提供了namespace来实现环境隔离功能。
 
 - nacos中可以有多个namespace
 - namespace下可以有group、service等
-- 不同namespace之间相互隔离，例如不同namespace的服务互相不可见
+- 不同namespace之间相互隔离，例如不同namespace的服务互相不可见，互相不可访问
 
 
 

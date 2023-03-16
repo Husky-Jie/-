@@ -1246,7 +1246,7 @@ FilterSecurityInterceptor 过滤器:该过滤器是过滤器链的最后一个�
 
 **认证流程是在UsernamePasswordAuthenticationFilter过滤器中处理的，具体流程如下：**
 
-<img src="D:\Java学习\java笔记\spring Security\assets\23-认证流程.jpg" alt="image-20230225152253396" style="zoom:50%;" />
+<img src="D:\Java学习\java笔记\spring Security\assets\23-认证流程.jpg" alt="image-20230225152253396"  />
 
 
 
@@ -1579,7 +1579,7 @@ protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServle
 
 
 
-## 8.2认证流程图解
+## 8.2认证流程中各核心类和接口的关系图
 
 ![](D:\Java学习\java笔记\spring Security\assets\24-认证流程中各核心类和接口的关系图.jpg)
 
