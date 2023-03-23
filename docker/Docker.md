@@ -64,8 +64,8 @@ docker search 镜像名称
 docker pull 镜像名称:版本号
 
 4、删除镜像：删除本地镜像
-docker rim 镜像id    删除指定镜像
-docker rim `docker images -q`  删除所有本地镜像
+docker rmi 镜像id    删除指定镜像
+docker rmi `docker images -q`  删除所有本地镜像
 ```
 
 
