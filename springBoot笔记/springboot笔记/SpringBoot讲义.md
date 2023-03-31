@@ -9847,12 +9847,12 @@ public class SpringConfig4 {
 }
 ```
 
-##### 使用@Import注解注入配置类
+##### 使用@Import注解注入配置类（配置类可以不用再加@Configuration注解，也可加载配置类及其下的bean）
 
 ​		除了加载bean，还可以使用@Import注解加载配置类。其实本质上是一样的，不解释太多了。
 
 ```java
-@Import(DogFactoryBean.class)
+@Import(DogFactoryBean.class)  
 public class SpringConfig4 {
 }
 ```
