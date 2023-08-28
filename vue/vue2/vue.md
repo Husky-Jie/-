@@ -423,36 +423,61 @@
 - 数组长度的更新会同步到页面上,是响应式的
 
 ```html
-<body>
-    <div id="app">
-        <ul>
-            <li v-for="(item,index) in arr">姓名：{{item}}，下标为{{index}}</li>
-        </ul>
-        <h2 v-for="item in food" v-bind:title="item.name">{{item.name}}</h2>
-        <br>
-        <input type="button" value="添加数据" @click="add"></input>
-        <input type="button" value="移除最左边的元素" @click="remove"></input>
-    </div>    
-</body>
+<template>
+  <div>
+    <ul>
+      <li v-for="(item, index) in list" :key="index">{{item}}</li>
+    </ul>
+    <button @click="changeList">改变数组</button>
+  </div>
+</template>
+
 <script>
-    var app = new Vue({
-        el:"#app",
-        data:{
-            arr:["张三","lisi","wangwu","zhaoliu"],
-            food:[{name:"面包"},{name:"辣条"}]
-        },
-        methods:{
-            add:function(){
-                // 向数组添加数据
-                this.food.push({name:"牛奶"})
-            },
-            remove:function(){
-                // 移除最左边的元素
-                this.food.shift();
-            }
-        }
-    })
+export default {
+  name: "数组",
+  data() {
+    return {
+      list: [1,2,3,4,5,6]
+    }
+  },
+  methods:{
+    changeList:function () {
+      // 在数组末尾添加元素
+      this.list.push(7, 8);
+
+      // 删除数组最后一个元素
+      this.list.pop();
+
+      // 删除数组第一位
+      this.list.shift();
+
+      // 给数组首位添加元素
+      this.list.unshift(0);
+
+      // splice();//删除元系、插入元素、替换元素
+      // 第一个参数:表示开始插入或者开始删除的元素的位置下标
+      // 删除元素
+      // 第二个参数:表示传入要删除几个元素(如果没有传，就删除后面所有的元素)
+      // 插入元素:
+      // 第二个参数:传入0,并且后面接上要插入的元素
+      // 替换元素:
+      // 第二个参数:表示我们替换几个元素，后面的参数表示用于替换前面的元素的
+      this.list.splice(1)
+
+      // 排序
+      this.list.sort();
+
+      // 翻转
+      this.list.reverse();
+    }
+  }
+}
 </script>
+
+<style>
+
+</style>
+
 ```
 
 
@@ -497,29 +522,64 @@
 - 绑定的数据和表单元素的值是双向绑定的
 
 ```java
-<body>
-    <div id="app">
-        <input type="button" value="修改数据" @click="setM"></input>
-        <input type="text" v-model="message" @keyup.enter="getM"></input>
-        <h2>{{message}}</h2>
-    </div>
-</body>
+<template>
+<!-- 双向绑定 -->
+  <div>
+    <h2>{{msg}}</h2>
+    <input type="text" v-model="msg">
+  </div>
+<!-- 单个勾选框 -->
+  <input type="checkbox" v-model="checked">
+  <h2>{{checked}}</h2>
+<!-- 多个勾选框 -->
+  <input type="checkbox" v-model="fruits" value="苹果">苹果
+  <input type="checkbox" v-model="fruits" value="雪梨">雪梨
+  <input type="checkbox" v-model="fruits" value="荔枝">荔枝
+  <input type="checkbox" v-model="fruits" value="西瓜">西瓜
+  <input type="checkbox" v-model="fruits" value="龙眼">龙眼
+  <h2>选择的水果有：{{fruits}}</h2>
+<!-- 单选框 -->
+  <input type="radio" v-model="sex" value="男">男
+  <input type="radio" v-model="sex" value="女">女
+  <h2>{{sex}}</h2>
+<!-- 选项框 -->
+<!-- 单选 -->
+  <select v-model="city">
+    <option value="广州">广州</option>
+    <option value="深圳">深圳</option>
+    <option value="东莞">东莞</option>
+    <option value="茂名">茂名</option>
+  </select>
+  <h2>{{city}}</h2>
+<!-- 多选 -->
+  <select v-model="cities" multiple>
+    <option value="广州">广州</option>
+    <option value="深圳">深圳</option>
+    <option value="东莞">东莞</option>
+    <option value="茂名">茂名</option>
+  </select>
+  <h2>{{cities}}</h2>
+</template>
+
 <script>
-    var app = new Vue({
-        el:"#app",
-        data:{
-            message:"兔子"
-        },
-        methods:{
-            getM:function(){
-                alert("ohhhhhhhhhhhhhhhh");
-            },
-            setM:function(){
-                this.message="仓鼠";
-            }
-        }
-    })
+export default {
+  name: "表单输入绑定",
+  data() {
+    return {
+      msg: "helloWorld",
+      checked: true,
+      fruits: [],
+      sex: "男",
+      city: "",
+      cities: []
+    }
+  },
+}
 </script>
+
+<style>
+
+</style>
 ```
 
 

@@ -44,7 +44,7 @@ Spring 是非常流行和成功的 Java 应用开发框架，而Spring Security 
 若要对Web资源进行保护，最好的办法是使用Filter对方法调用进行保护，当然也可以使用AOP的方式。
 Spring Security进行认证和鉴权的时候，就是利用的一系列的Filter来进行拦截的。
 
-![image-20230221111126841](D:\Java学习\java笔记\spring Security\assets\image-20230221111126841.png)
+![image-20230221111126841](.\assets\image-20230221111126841.png)
 
 一个请求想要访问到API就会从左到右经过蓝线框里的过滤器，其中绿色部分是负责认证的过滤器，蓝色部分是负责异常处理，橙色部分则是负责授权。进过一系列拦截最终访问到我们的API。
 
@@ -66,7 +66,7 @@ UsernamePasswordAuthenticationFilter对/login的POST请求进行拦截，校验�
 
 # 4.用户认证流程
 
-![image-20230221111303611](D:\Java学习\java笔记\spring Security\assets\image-20230221111303611.png)
+![image-20230221111303611](.\assets\image-20230221111303611.png)
 
 当前登录用户在Spring Security中的体现就是 Authentication，它存储了认证信息，代表当前登录用户。使用时通过 SecurityContext 来获取Authentication，SecurityContext就是我们的上下文对象！这个上下文对象则是交由 SecurityContextHolder 进行管理。你可以这样使用：
 
@@ -129,13 +129,13 @@ public class UserController {
 
 启动项目并访问，会跳转一个springSecurity登录页面
 
-<img src="D:\Java学习\java笔记\spring Security\assets\image-20230221112054326.png" alt="image-20230221112054326" style="zoom:50%;" />
+<img src=".\assets\image-20230221112054326.png" alt="image-20230221112054326" style="zoom:50%;" />
 
 默认用户名为user
 
 默认名密码在springboot控制台中随机生成
 
-<img src="D:\Java学习\java笔记\spring Security\assets\image-20230221112234828.png" alt="image-20230221112234828" style="zoom:50%;" />
+<img src=".\assets\image-20230221112234828.png" alt="image-20230221112234828" style="zoom:50%;" />
 
 ## 5.1两个重要接口
 
@@ -388,7 +388,7 @@ http
 
 ### **@Secured**
 
-使用该注解要在@EnableGlobalMethodSecurity(**securedEnabled = true**)加入加粗字体的参数
+使用该注解要在@EnableGlobalMethodSecurity(**securedEnabled = true**)
 
 设置可以访问的权限，判断某个角色具有该权限，才可以使用方法。另外需要注意的是这里匹配的字符串需要添加前缀“ROLE_ “	
 
@@ -414,11 +414,11 @@ public String update() {
 
 ### @PreAuthorize
 
-使用该注解要在@EnableGlobalMethodSecurity(**prePostEnabled = true**)加入加粗字体的参数
+使用该注解要在@EnableGlobalMethodSecurity(**prePostEnabled = true**)
 
 @PreAuthorize : 注解是进入方法前的权限验证，@ PreAuthorize 可以将登录用户的 roles/permissions 参数传到方法中。
 
-<img src="D:\Java学习\java笔记\spring Security\assets\image-20230222151559549.png" alt="image-20230222151559549" style="zoom:50%;" />
+<img src=".\assets\image-20230222151559549.png" alt="image-20230222151559549" style="zoom:50%;" />
 
 该注解和配置类权限控制类似，**不过该注解在controller的方法中使用**
 
@@ -508,7 +508,7 @@ public List<User> testPre(@RequestBody List<User> users) {
 1. 当用户登录认证成功之后，SpringSecurity会将加密后的cookie（加密串）存进一份至浏览器，在数据库中也存入一份加密串和用户信息字符串；
 2. 当下次再访问时，SpringSecurity会获取cookie信息，拿着cookie信息到数据库进行比对，如果查询到对应信息，认证成功，就自动登录
 
-![image-20230222162644733](D:\Java学习\java笔记\spring Security\assets\11-web权限方案-记住用户流程.png)
+![image-20230222162644733](.\assets\11-web权限方案-记住用户流程.png)
 
 
 
@@ -679,7 +679,7 @@ public class SecurityConfig2 extends WebSecurityConfigurerAdapter{
 
 （2）如果是 token，则是解析出 token，然后将当前请求加入到 Spring-security 管理的权限 信息中去
 
-![image-20230222203342727](D:\Java学习\java笔记\spring Security\assets\image-20230222203342727.png)
+![image-20230222203342727](.\assets\image-20230222203342727.png)
 
 1. 如果系统的模块众多，每个模块都需要进行授权与认证，所以我们选择基于 token 的形式 进行授权与认证，
 2. 用户根据用户名密码认证成功，然后获取当前用户角色的一系列权限值，
@@ -695,17 +695,17 @@ public class SecurityConfig2 extends WebSecurityConfigurerAdapter{
 
 ### 创建工程
 
-导入相关的依赖，[参考文件](D:\Java学习\SpringSecurityStudy\资料\案例pom文件)
+导入相关的依赖，[参考文件](D:\JavaStudy\SpringSecurityStudy\资料\案例pom文件)
 
-<img src="D:\Java学习\java笔记\spring Security\assets\image-20230223160445349.png" alt="image-20230223160445349" style="zoom:50%;" />
+<img src=".\assets\image-20230223160445349.png" alt="image-20230223160445349" style="zoom:50%;" />
 
 ### service_base工程
 
 #### 添加工具类
 
-[参考文件](D:\Java学习\SpringSecurityStudy\资料\案例工具类)
+[参考文件](D:\JavaStudy\SpringSecurityStudy\资料\案例工具类)
 
-<img src="D:\Java学习\java笔记\spring Security\assets\image-20230223160841282.png" alt="image-20230223160841282" style="zoom:50%;" />
+<img src=".\assets\image-20230223160841282.png" alt="image-20230223160841282" style="zoom:50%;" />
 
 ### spring_security工程
 
@@ -1231,7 +1231,7 @@ spring.cloud.gateway.routes[0].predicates= Path=/*/acl/**
 
 Spring Security 采取过滤链实现认证与授权，只有当前过滤器通过，才能进入下一个过滤器:
 
-<img src="D:\Java学习\java笔记\spring Security\assets\image-20230225152053770.png" alt="image-20230225152053770" style="zoom:50%;" />
+<img src=".\assets\image-20230225152053770.png" alt="image-20230225152053770" style="zoom:50%;" />
 
 绿色部分是认证过滤器，需要我们自己配置，可以配置多个认证过滤器。认证过滤器可以使用Spring Security 提供的认证过滤器，也可以自定义过滤器(例如:短信验证)。认证过滤器要在 configure(HttpSecurity http)方法中配置，没有配置不生效。下面会重点介绍以下三个过滤器:
 UsernamePasswordAuthenticationFilter 过滤器:该过滤器会拦截前端提交的 POST 方式的登录表单请求，并进行身份认证。
@@ -1246,7 +1246,7 @@ FilterSecurityInterceptor 过滤器:该过滤器是过滤器链的最后一个�
 
 **认证流程是在UsernamePasswordAuthenticationFilter过滤器中处理的，具体流程如下：**
 
-<img src="D:\Java学习\java笔记\spring Security\assets\23-认证流程.jpg" alt="image-20230225152253396"  />
+<img src=".\assets\23-认证流程.jpg" alt="image-20230225152253396"  />
 
 
 
@@ -1534,7 +1534,7 @@ public void eraseCredentials() {
 
 上述过程就是认证流程的最核心部分，接下来重新回到 UsernamePasswordAuthenticationFilter 过滤器的 doFilter() 方法，查看认证成 功/失败的处理：
 
-![image-20230225213921389](D:\Java学习\java笔记\spring Security\assets\image-20230225213921389.png)
+![image-20230225213921389](.\assets\image-20230225213921389.png)
 
 **查看successfulAuthentication()方法和unsuccessfulAuthentication()方法的源码**
 
@@ -1581,7 +1581,7 @@ protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServle
 
 ## 8.2认证流程中各核心类和接口的关系图
 
-![](D:\Java学习\java笔记\spring Security\assets\24-认证流程中各核心类和接口的关系图.jpg)
+![](.\assets\24-认证流程中各核心类和接口的关系图.jpg)
 
 
 
@@ -1671,11 +1671,11 @@ public void invoke(FilterInvocation filterInvocation) throws IOException, Servle
 
 一般认证成功后的用户信息是通过 Session 在多个请求之间共享，那么 Spring  Security 中是如何实现将已认证的用户信息对象 Authentication 与 Session 绑定的进行 具体分析。
 
-![image-20230225222154785](D:\Java学习\java笔记\spring Security\assets\image-20230225222154785.png)
+![image-20230225222154785](.\assets\image-20230225222154785.png)
 
 在前面认证成功的处理方法 successfulAuthentication() 时，有以下代码：
 
-![image-20230225222528685](D:\Java学习\java笔记\spring Security\assets\image-20230225222528685.png)
+![image-20230225222528685](.\assets\image-20230225222528685.png)
 
 SecurityContext 接 口 及 其 实 现 类 SecurityContextImpl ， 该 类 其 实 就 是 对 Authentication 的封装；
 

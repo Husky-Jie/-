@@ -146,7 +146,7 @@ docker run 参数 -v 宿主机目录1:容器内目录1 -v 宿主机目录2:容�
 
 
 
-<img src="D:\Java学习\java笔记\docker\imgs\image-20221118155448176.png" alt="image-20221118155448176" style="zoom:50%;" />
+<img src="imgs\image-20221118155448176.png" alt="image-20221118155448176" style="zoom:50%;" />
 
 
 
@@ -156,7 +156,7 @@ docker run 参数 -v 宿主机目录1:容器内目录1 -v 宿主机目录2:容�
 
 ## 3.2配置数据卷容器
 
-<img src="D:\Java学习\java笔记\docker\imgs\image-20221119104958163.png" alt="image-20221119104958163" style="zoom:50%;" />
+<img src="imgs\image-20221119104958163.png" alt="image-20221119104958163" style="zoom:50%;" />
 
 ```markdown
 1.创建启动c3数据卷容器， 使用 -v参数 设置数据卷
@@ -190,7 +190,7 @@ docker run -it --name=c2 --volumes-from 数据卷容器c3 /bin/bash
 
 # 4.docker应用部署
 
-<img src="D:\Java学习\java笔记\docker\imgs\image-20221119110155387.png" alt="image-20221119110155387" style="zoom:50%;" />
+<img src="imgs\image-20221119110155387.png" alt="image-20221119110155387" style="zoom:50%;" />
 
 - 容器内的网络服务和外部机器不能直接通信
 - 外部机器和宿主机可以直接通信
@@ -206,7 +206,7 @@ docker run -it --name=c2 --volumes-from 数据卷容器c3 /bin/bash
 
 ## 5.1Docker镜像原理
 
-<img src="D:\Java学习\java笔记\docker\imgs\image-20221119170728656.png" alt="image-20221119170728656" style="zoom:50%;" />
+<img src="imgs\image-20221119170728656.png" alt="image-20221119170728656" style="zoom:50%;" />
 
 - Docker镜像是由特殊的文件系统叠加而成
 - 最底端是bootfs，并使用宿主机的bootfs
@@ -273,7 +273,7 @@ docker load -i 文件名.tar
 
  [dockerfile.md](dockerfile.md) 
 
-![image-20221120164407914](D:\Java学习\java笔记\docker\imgs\image-20221120164407914.png)
+![image-20221120164407914](imgs\image-20221120164407914.png)
 
 
 
@@ -298,7 +298,7 @@ Docker Compose是一个编排多容器分布式部署的工具，提供命令集
 2.使用docker-compose.yml定义组成应用的各服务
 3.运行 docker-composeup 启动应用
 
-<img src="D:\Java学习\java笔记\docker\imgs\image-20221120173058192.png" alt="image-20221120173058192" style="zoom:50%;" />
+<img src="imgs\image-20221120173058192.png" alt="image-20221120173058192" style="zoom:50%;" />
 
  [docker-compose.md](docker-compose.md) 
 
@@ -320,7 +320,7 @@ Docker官方的Dockerhub (https://hub.docker.com)是一个用于管理共镜像�
 - 容器化软件在任何环境中都能够始终如一地运行。
 - 容器赋予了软件独立性，使其免受外在环境差异的影响，从而有助于减少团队间在相同基础设施上运行不同软件时的冲突。
 
-<img src="D:\Java学习\java笔记\docker\imgs\image-20221120182306264.png" alt="image-20221120182306264" style="zoom:50%;" />
+<img src="imgs\image-20221120182306264.png" alt="image-20221120182306264" style="zoom:50%;" />
 
 相同:
 
