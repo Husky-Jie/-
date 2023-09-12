@@ -1758,67 +1758,123 @@ Guarded Suspension，用在一个线程等待另一个线程的执行结果
 
 ![](https://seazean.oss-cn-beijing.aliyuncs.com/img/Java/JUC-保护性暂停.png)
 
+Downloader类
+
 ```java
-public static void main(String[] args) {
-    GuardedObject object = new GuardedObjectV2();
-    new Thread(() -> {
-        sleep(1);
-        object.complete(Arrays.asList("a", "b", "c"));
-    }).start();
-    
-    Object response = object.get(2500);
-    if (response != null) {
-        log.debug("get response: [{}] lines", ((List<String>) response).size());
-    } else {
-        log.debug("can't get response");
+package com.husky.demo03;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Date: 2023/8/28
+ * Time: 16:48
+ * Description: TODO
+ */
+public class Downloader {
+
+    public static List<String> download() throws IOException {
+
+        HttpURLConnection conn = (HttpURLConnection) new URL("https://www.baidu.com/").openConnection();
+        List<String> lines = new ArrayList<>();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            lines.add(line);
+        }
+        return lines;
     }
 }
 
-class GuardedObject {
-    private Object response;
-    private final Object lock = new Object();
+```
 
-    //获取结果
-    //timeout :最大等待时间
-    public Object get(long millis) {
-        synchronized (lock) {
-            // 1) 记录最初时间
-            long begin = System.currentTimeMillis();
-            // 2) 已经经历的时间
-            long timePassed = 0;
+
+
+
+
+```java
+package com.husky.demo03;
+
+import java.io.IOException;
+import java.util.List;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Date: 2023/8/28
+ * Time: 16:39
+ * Description: TODO
+ */
+public class ProtectivePause {
+
+    public static void main(String[] args) {
+        GuardedObject guardedObject = new GuardedObject();
+
+        // 获取结果
+        new Thread(()->{
+            System.out.println(Thread.currentThread().getName()+"等待结果");
+            List<String> res = (List<String>) guardedObject.get(1000);
+            System.out.println(Thread.currentThread().getName()+"大小为"+res.size());
+        },"t1").start();
+
+        // 产生结果
+        new Thread(()->{
+            System.out.println(Thread.currentThread().getName()+"执行下载");
+            try {
+                List<String> download = Downloader.download();
+                guardedObject.complete(download);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        },"t2").start();
+    }
+}
+
+class GuardedObject{
+
+    // 结果
+    private Object response;
+
+    // 获取结果
+    public Object get(long timeout){
+        // 记录开始等待的时间
+        long begin = System.currentTimeMillis();
+        // 记录经历的时间
+        long passTime = 0;
+        synchronized (this) {
             while (response == null) {
-                // 4) 假设 millis 是 1000，结果在 400 时唤醒了，那么还有 600 要等
-                long waitTime = millis - timePassed;
-                log.debug("waitTime: {}", waitTime);
-                //经历时间超过最大等待时间退出循环
+                long waitTime = timeout - passTime;
                 if (waitTime <= 0) {
-                    log.debug("break...");
+                    System.out.println("获取超时");
                     break;
                 }
                 try {
-                    lock.wait(waitTime);
+                    this.wait(waitTime);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
-                // 3) 如果提前被唤醒，这时已经经历的时间假设为 400
-                timePassed = System.currentTimeMillis() - begin;
-                log.debug("timePassed: {}, object is null {}",
-                        timePassed, response == null);
+                passTime = System.currentTimeMillis() - begin;
             }
-            return response;
         }
+        return response;
     }
 
-    //产生结果
-    public void complete(Object response) {
-        synchronized (lock) {
-            // 条件满足，通知等待线程
+    // 产生结果
+    public void complete(Object response){
+        synchronized(this) {
             this.response = response;
-            log.debug("notify...");
-            lock.notifyAll();
+            this.notifyAll();
         }
     }
 }
+
 ```
 
 
